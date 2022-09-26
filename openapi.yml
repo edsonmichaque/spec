@@ -25,7 +25,7 @@ externalDocs:
 servers:
   - url: https://petstore3.swagger.io
 tags:
-  - name: transfers
+  - name: sms
     description: SMS
     externalDocs:
       description: Find out more
@@ -36,47 +36,19 @@ security:
 - ApiKeyAuth: []
 
 paths:
-  /v1/transfers:
-    post:
-      tags:
-        - transfers
-      summary: Create transfer
-      description: Create transfer
-      operationId: create-transfer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateTransferInput'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transfer'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+  /v1/sms/networks:
     get:
       tags:
-        - transfers
-      summary: List transfer
-      description: List transfer
-      operationId: list-transfers
+        - sms
+      summary: List networks
+      description: Returns a single pet
+      operationId: list-networks
       parameters:
-      - name: status
-        in: query
-        schema:
-          type: string
-        required: false
+        - name: country_code
+          in: query
+          description: ID of pet to return
+          schema:
+            type: string
       responses:
         '200':
           description: successful operation
@@ -85,7 +57,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transfer'
+                  $ref: '#/components/schemas/Network'
         '400':
           description: Invalid ID supplied
         '404':
@@ -96,27 +68,200 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/transfers/{transferId}:
+
+  /v1/sms/networks/{networkId}:
+    get:
+      tags:
+        - sms
+      summary: Get network
+      description: Returns a single pet
+      operationId: get-network
+      parameters:
+        - name: networkId
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: country_code
+          in: query
+          description: ID of pet to return
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/sms/networks/{networkId}/pricing:
+    get:
+      tags:
+        - sms
+      summary: List network rates
+      description: Returns a single pet
+      operationId: get-pricing
+      parameters:
+        - name: networkId
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pricing'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - sms
+      summary: Create network price
+      description: Returns a single pet
+      operationId: create-pricing
+      parameters:
+        - name: networkId
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/sms/messages:
     post:
       tags:
-        - transfers
-      summary: Get transfer
-      description: Get transfer
-      operationId: get-transfer
-      parameters:
-      - name: transferId
-        in: path
-        schema:
-          type: integer
-          format: int64
+        - sms
+      summary: Create Message
+      description: Update an existing pet by Id
+      operationId: create-message
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageInput'
         required: true
       responses:
         '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - sms
+      summary: List messages
+      description: Update an existing pet by Id
+      operationId: list-messages
+      parameters:
+      - name: inbox
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/sms/messages/{messageId}:
+    get:
+      tags:
+        - sms
+      summary: Get message
+      description: Returns a single pet
+      operationId: get-message
+      parameters:
+        - name: messageId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
+                $ref: '#/components/schemas/Message'
         '400':
           description: Invalid ID supplied
         '404':
@@ -127,28 +272,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - sms
+      summary: Deletes a message
+      description: delete a message
+      operationId: delete-message
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: messageId
+          in: path
+          description: Pet id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid pet value
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
-  /v1/transfers/{transferId}/confirm:
+  /v1/sms/messages/{messageId}/send:
     post:
       tags:
-        - transfers
-      summary: Confirm transfer
-      description: Confirm transfer
-      operationId: confirm-transfer
+        - sms
+      summary: Sends a message
+      description: Returns a single pet
+      operationId: send-message
       parameters:
-      - name: transferId
-        in: path
-        schema:
-          type: integer
-          format: int64
-        required: true
+        - name: messageId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
+                $ref: '#/components/schemas/Message'
         '400':
           description: Invalid ID supplied
         '404':
@@ -160,124 +335,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /v1/transfers/{transferId}/cancel:
+  /v1/sms/messages/{messageId}/cancel:
     post:
       tags:
-        - transfers
-      summary: Cancel transfer
-      description: Cancel transfer
-      operationId: cancel-transfer
+        - sms
+      summary: Cancel a message
+      description: Returns a single pet
+      operationId: cancel-message
       parameters:
-      - name: transferId
-        in: path
-        schema:
-          type: integer
-          format: int64
-        required: true
+        - name: messageId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transfer'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-  /v1/beneficiaries:
-    get:
-      tags:
-        - beneficiaries
-      summary: Get beneficiary
-      description: Get beneficiary
-      operationId: get-beneficiary
-      parameters:
-      - name: msisdn
-        in: query
-        schema:
-          type: string
-        required: false
-      - name: account_number
-        in: query
-        schema:
-          type: string
-        required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transfer'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/beneficiaries/validation:
-    get:
-      tags:
-        - beneficiaries
-      summary: Validate beneficiary
-      description: Validate beneficiary
-      operationId: validate-beneficiary
-      parameters:
-      - name: msisdn
-        in: query
-        schema:
-          type: string
-        required: false
-      - name: account_number
-        in: query
-        schema:
-          type: string
-        required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transfer'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-
-  /v1/balance:
-    get:
-      tags:
-        - balances
-      summary: Get balance
-      description: Get balance
-      operationId: get-balance
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Balance'
+                $ref: '#/components/schemas/Message'
         '400':
           description: Invalid ID supplied
         '404':
@@ -291,51 +370,64 @@ paths:
 
 components:
   schemas:
-    Balance:
+    Pricing:
       type: object
       properties:
-        balance:
+        cost_per_unit:
           type: number
+    Cost:
+      type: object
+      properties:
         currency:
           type: string
-    Source:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-    Destination:
-      type: object
-      properties:
-        msisdn:
-          type: string
-        bank_account:
-          type: string
-    Transfer:
+          example: MZN
+        value:
+          type: number
+          example: 1
+    Network:
       type: object
       properties:
         id:
           type: integer
+        created_at:
+          type: integer
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
         status:
           type: string
-    Amount:
+          enum:
+          - PENDING
+          - REJECTED
+          example: REJECTED
+        reason:
+          type: string
+        cost:
+          $ref: '#/components/schemas/Cost'
+        inbox:
+          type: string
+          enum:
+          - incoming
+          - outgoing
+    CreateMessageInput:
       type: object
       properties:
-        value:
+        to:
+          type: array
+          items:
+            type: string
+        from:
           type: string
-        currency:
+        network_id:
+          type: integer
+        callback_url:
           type: string
-
-    CreateTransferInput:
-      type: object
-      properties:
-        destination:
-          $ref: '#/components/schemas/Destination'
-        source:
-          $ref: '#/components/schemas/Source'
-        amount:
-          $ref: '#/components/schemas/Amount'
     Error:
       type: object
       properties:
@@ -346,6 +438,13 @@ components:
           type: string
         message:
           type: string
+  requestBodies:
+    Message:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
   securitySchemes:
     BasicAuth:
       type: http
