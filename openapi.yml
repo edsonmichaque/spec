@@ -1,0 +1,359 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: edson@michaque.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://petstore3.swagger.io
+tags:
+  - name: transfers
+    description: SMS
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+security:
+- BasicAuth: []
+- BearerAuth: []
+- ApiKeyAuth: []
+
+paths:
+  /v1/transfers:
+    post:
+      tags:
+        - transfers
+      summary: Create transfer
+      description: Create transfer
+      operationId: create-transfer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransferInput'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - transfers
+      summary: List transfer
+      description: List transfer
+      operationId: list-transfers
+      parameters:
+      - name: status
+        in: query
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/transfers/{transferId}:
+    post:
+      tags:
+        - transfers
+      summary: Get transfer
+      description: Get transfer
+      operationId: get-transfer
+      parameters:
+      - name: transferId
+        in: path
+        schema:
+          type: integer
+          format: int64
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/transfers/{transferId}/confirm:
+    post:
+      tags:
+        - transfers
+      summary: Confirm transfer
+      description: Confirm transfer
+      operationId: confirm-transfer
+      parameters:
+      - name: transferId
+        in: path
+        schema:
+          type: integer
+          format: int64
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/transfers/{transferId}/cancel:
+    post:
+      tags:
+        - transfers
+      summary: Cancel transfer
+      description: Cancel transfer
+      operationId: cancel-transfer
+      parameters:
+      - name: transferId
+        in: path
+        schema:
+          type: integer
+          format: int64
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/beneficiaries:
+    get:
+      tags:
+        - beneficiaries
+      summary: Get beneficiary
+      description: Get beneficiary
+      operationId: get-beneficiary
+      parameters:
+      - name: msisdn
+        in: query
+        schema:
+          type: string
+        required: false
+      - name: account_number
+        in: query
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/beneficiaries/validation:
+    get:
+      tags:
+        - beneficiaries
+      summary: Validate beneficiary
+      description: Validate beneficiary
+      operationId: validate-beneficiary
+      parameters:
+      - name: msisdn
+        in: query
+        schema:
+          type: string
+        required: false
+      - name: account_number
+        in: query
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /v1/balance:
+    get:
+      tags:
+        - balances
+      summary: Get balance
+      description: Get balance
+      operationId: get-balance
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Balance:
+      type: object
+      properties:
+        balance:
+          type: number
+        currency:
+          type: string
+    Source:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+    Destination:
+      type: object
+      properties:
+        msisdn:
+          type: string
+        bank_account:
+          type: string
+    Transfer:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+        currency:
+          type: string
+
+    CreateTransferInput:
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/Destination'
+        source:
+          $ref: '#/components/schemas/Source'
+        amount:
+          $ref: '#/components/schemas/Amount'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

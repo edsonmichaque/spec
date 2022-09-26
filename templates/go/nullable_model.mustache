@@ -1,0 +1,35 @@
+type Optional{{{classname}}} struct {
+	value {{^isArray}}{{^isFreeFormObject}}*{{/isFreeFormObject}}{{/isArray}}{{{classname}}}
+	set bool
+}
+
+func (v Optional{{classname}}) Get() {{^isArray}}{{^isFreeFormObject}}*{{/isFreeFormObject}}{{/isArray}}{{classname}} {
+	return v.value
+}
+
+func (v *Optional{{classname}}) Set(val {{^isArray}}{{^isFreeFormObject}}*{{/isFreeFormObject}}{{/isArray}}{{classname}}) {
+	v.value = val
+	v.set = true
+}
+
+func (v Optional{{classname}}) IsSet() bool {
+	return v.set
+}
+
+func (v *Optional{{classname}}) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptional{{classname}}(val {{^isArray}}{{^isFreeFormObject}}*{{/isFreeFormObject}}{{/isArray}}{{classname}}) *Optional{{classname}} {
+	return &Optional{{classname}}{value: val, set: true}
+}
+
+func (v Optional{{{classname}}}) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *Optional{{{classname}}}) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}

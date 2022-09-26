@@ -1,0 +1,6 @@
+{
+    "invokerPackage": "Openpds\\V1",
+    "packageName": "Openpds\\V1",
+    "variableNamingConvention": "camelCase",
+    "moduleVersion": "0.TIMESTAMP.BUILD"
+}

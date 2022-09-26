@@ -1,0 +1,8 @@
+{
+    "packageName": "openpds",
+    "gitHost": "github.com",
+    "gitUserId": "openpdsproject",
+    "gitRepoId": "openpds-go",
+    "packageVersion": "0.TIMESTAMP.BUILD",
+    "structPerfix": true
+}

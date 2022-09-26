@@ -1,0 +1,12 @@
+{
+    "apiPackage": "io.github.umbeluzi.openpds",
+    "artifactId": "openpds-java",
+    "licenseName": "Apache-2.0",
+    "modelPackage": "io.github.umbeluzi.openpds.model",
+    "serializableModel": true,
+    "groupId": "io.github.umbeluzi",
+    "invokerPackage": "io.github.umbeluzi.openpds",
+    "licenseName": "Apache-2.0",
+    "artifactId": "openpds",
+    "artifactVersion": "0.TIMESTAMP.BUILD"
+}

@@ -1,0 +1,6 @@
+{
+    "moduleName": "openpds",
+    "projectName": "openpds",
+    "usePromises": true,
+    "projectVersion": "0.TIMESTAMP.BUILD"
+}

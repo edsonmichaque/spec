@@ -1,0 +1,333 @@
+// Copyright [yyyy] [name of copyright owner]
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+{{>partial_header}}
+package {{packageName}}
+
+import (
+	"encoding/json"
+	"time"
+)
+
+// Bool is a helper routine that returns a pointer to given boolean value.
+func Bool(v bool) *bool { return &v }
+
+// Int is a helper routine that returns a pointer to given integer value.
+func Int(v int) *int { return &v }
+
+// Int32 is a helper routine that returns a pointer to given integer value.
+func Int32(v int32) *int32 { return &v }
+
+// Int64 is a helper routine that returns a pointer to given integer value.
+func Int64(v int64) *int64 { return &v }
+
+// Float32 is a helper routine that returns a pointer to given float value.
+func Float32(v float32) *float32 { return &v }
+
+// Float64 is a helper routine that returns a pointer to given float value.
+func Float64(v float64) *float64 { return &v }
+
+// String is a helper routine that returns a pointer to given string value.
+func String(v string) *string { return &v }
+
+// Time is helper routine that returns a pointer to given Time value.
+func Time(v time.Time) *time.Time { return &v }
+
+type OptionalBool struct {
+	value *bool
+	set bool
+}
+
+func (v OptionalBool) Get() *bool {
+	return v.value
+}
+
+func (v *OptionalBool) Set(val *bool) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalBool) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalBool) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalBool(val *bool) *OptionalBool {
+	return &OptionalBool{value: val, set: true}
+}
+
+func (v OptionalBool) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalBool) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalInt struct {
+	value *int
+	set bool
+}
+
+func (v OptionalInt) Get() *int {
+	return v.value
+}
+
+func (v *OptionalInt) Set(val *int) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalInt) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalInt) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalInt(val *int) *OptionalInt {
+	return &OptionalInt{value: val, set: true}
+}
+
+func (v OptionalInt) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalInt) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalInt32 struct {
+	value *int32
+	set bool
+}
+
+func (v OptionalInt32) Get() *int32 {
+	return v.value
+}
+
+func (v *OptionalInt32) Set(val *int32) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalInt32) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalInt32) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalInt32(val *int32) *OptionalInt32 {
+	return &OptionalInt32{value: val, set: true}
+}
+
+func (v OptionalInt32) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalInt32) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalInt64 struct {
+	value *int64
+	set bool
+}
+
+func (v OptionalInt64) Get() *int64 {
+	return v.value
+}
+
+func (v *OptionalInt64) Set(val *int64) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalInt64) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalInt64) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalInt64(val *int64) *OptionalInt64 {
+	return &OptionalInt64{value: val, set: true}
+}
+
+func (v OptionalInt64) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalInt64) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalFloat32 struct {
+	value *float32
+	set bool
+}
+
+func (v OptionalFloat32) Get() *float32 {
+	return v.value
+}
+
+func (v *OptionalFloat32) Set(val *float32) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalFloat32) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalFloat32) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalFloat32(val *float32) *OptionalFloat32 {
+	return &OptionalFloat32{value: val, set: true}
+}
+
+func (v OptionalFloat32) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalFloat32) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalFloat64 struct {
+	value *float64
+	set bool
+}
+
+func (v OptionalFloat64) Get() *float64 {
+	return v.value
+}
+
+func (v *OptionalFloat64) Set(val *float64) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalFloat64) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalFloat64) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalFloat64(val *float64) *OptionalFloat64 {
+	return &OptionalFloat64{value: val, set: true}
+}
+
+func (v OptionalFloat64) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalFloat64) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalString struct {
+	value *string
+	set bool
+}
+
+func (v OptionalString) Get() *string {
+	return v.value
+}
+
+func (v *OptionalString) Set(val *string) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalString) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalString) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalString(val *string) *OptionalString {
+	return &OptionalString{value: val, set: true}
+}
+
+func (v OptionalString) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *OptionalString) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}
+
+type OptionalTime struct {
+	value *time.Time
+	set bool
+}
+
+func (v OptionalTime) Get() *time.Time {
+	return v.value
+}
+
+func (v *OptionalTime) Set(val *time.Time) {
+	v.value = val
+	v.set = true
+}
+
+func (v OptionalTime) IsSet() bool {
+	return v.set
+}
+
+func (v *OptionalTime) Unset() {
+	v.value = nil
+	v.set = false
+}
+
+func NewOptionalTime(val *time.Time) *OptionalTime {
+	return &OptionalTime{value: val, set: true}
+}
+
+func (v OptionalTime) MarshalJSON() ([]byte, error) {
+	return v.value.MarshalJSON()
+}
+
+func (v *OptionalTime) UnmarshalJSON(src []byte) error {
+	v.set = true
+	return json.Unmarshal(src, &v.value)
+}

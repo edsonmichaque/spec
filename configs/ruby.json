@@ -1,0 +1,7 @@
+{
+    "gemName": "openpds",
+    "moduleName": "Openpds",
+    "gemLicense": "Apache-2.0",
+    "moduleName": "Openpds::V1",
+    "gemVersion": "0.TIMESTAMP.BUILD"
+}
